@@ -1,9 +1,14 @@
-import datetime, time, zmq, json
+import datetime, time, zmq, json, threading
 from pyramid.view import view_config
 from pyramid.response import Response
 
 SOCK = 'ipc:///tmp/zmq.test'
 context = zmq.Context()
+
+pub_socket = context.socket(zmq.PUB)
+pub_socket.bind(SOCK)
+
+pub_lock = threading.Lock()
 
 @view_config(route_name='home', renderer='/home.mako')
 def home(request):
@@ -21,10 +26,8 @@ def events(request):
 def push(request):
     msg = request.json_body['message']
 
-    socket = context.socket(zmq.PUB)
-    socket.bind(SOCK)
-    print msg
-    socket.send(msg.encode('utf-8'))
+    with pub_lock:
+        pub_socket.send(msg.encode('utf-8'))
 
     return Response()
 
