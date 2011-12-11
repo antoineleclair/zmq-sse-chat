@@ -7,7 +7,7 @@ $(function() {
 });
 
 function messageReceived(event) {
-    $('#messages').append('<p>' + event.data + '</p>');
+    $('#messages').append('<p>' + JSON.parse(event.data)['message'] + '</p>');
 }
 
 function submitMessage() {

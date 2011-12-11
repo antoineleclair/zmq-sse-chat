@@ -24,11 +24,9 @@ def events(request):
     
 @view_config(route_name = 'push')
 def push(request):
-    msg = request.json_body['message']
-
+    msg = json.loads(request.body)['message']
     with pub_lock:
         pub_socket.send(msg.encode('utf-8'))
-
     return Response()
 
 def message_generator():
@@ -37,5 +35,4 @@ def message_generator():
     socket2.setsockopt(zmq.SUBSCRIBE, '')
     while True:
         msg = socket2.recv()
-        print msg
-        yield u"data: %s\n\n" % msg.decode('utf-8')
+        yield "data: %s\n\n" % json.dumps({'message': msg})
