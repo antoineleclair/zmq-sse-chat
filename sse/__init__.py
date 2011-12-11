@@ -12,7 +12,6 @@ def main(global_config, **settings):
     config.add_static_view('static', 'sse:static', cache_max_age=3600)
     config.add_route('home', '/')
     config.add_route('events', '/events')
-    config.add_route('push', '/push/{channel}')
+    config.add_route('push', '/push')
     config.scan('sse')
     return config.make_wsgi_app()
-

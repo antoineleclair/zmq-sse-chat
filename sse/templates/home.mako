@@ -6,6 +6,15 @@
     <script src="/static/js/sse.js"></script>
 </head>
 <body>
-    <div id="time">nothing yet</div>
+    <div id="messages"></div>
+    
+    <form action="" method="post" id="shout-box">
+        <p>
+            <textarea cols="40" rows="5"></textarea>
+        </p>
+        <p>
+            <input type="submit" value="Shout"/>
+        </p>
+    </form>
 </body>
 </html>
