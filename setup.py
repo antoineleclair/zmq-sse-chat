@@ -16,6 +16,7 @@ requires = [
     'pyramid_debugtoolbar',
     'zope.sqlalchemy',
     'pyzmq',
+    'pyramid_mako',
     ]
 
 if sys.version_info[:3] < (2,5,0):
